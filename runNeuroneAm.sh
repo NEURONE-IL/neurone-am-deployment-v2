@@ -28,7 +28,7 @@ cd ..
 echo "## Init Kafka Connect"
 cd Kafka-connect
 ./runDocker.sh
-sleep 30
+sleep 60
 echo "# Create mongo connector"
 ./createMongoConnector.sh
 echo "## Kafka-connect created"
@@ -42,11 +42,17 @@ sleep 10
 echo "##Kafka processor created"
 
 cd ..
-echo "## Cloning Neurone am Coordinador v2"
-git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
-cd neurone-am-coordinator-v2
-echo "## Init neurone am coordinator v2"
+# echo "## Cloning Neurone am Coordinador v2"
+# git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
+# cd neurone-am-coordinator-v2
+# echo "## Init neurone am coordinator v2"
+# ./runDocker.sh
+# cd ..
+
+cd pushpin
 ./runDocker.sh
 cd ..
+echo "## Init pushpin"
+
 echo "###NEURONE AM V2 is Ready"
 

@@ -1,0 +1,1 @@
+*,sockjs=/ws,sockjs_as_path=/ws localhost:8085,over_http

@@ -5,8 +5,8 @@ curl -X POST http://localhost:28082/connectors -H "Content-Type: application/jso
     "config": {
         "connector.class": "com.mongodb.kafka.connect.MongoSourceConnector",
         "tasks.max": 1,
-        "connection.uri": "mongodb://test:test@localhost:27018/?authSource=test",
-        "database": "test",
+        "connection.uri": "mongodb://neurone:neur0n3@localhost:27017/?authSource=neurone",
+        "database": "neurone",
         "poll.max.batch.size": 1000,
         "poll.await.times.ms": 5000,
         "publish.full.document.only": true,

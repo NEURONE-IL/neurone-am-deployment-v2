@@ -28,4 +28,9 @@ sudo docker stop ctr_zookeeper
 sudo docker rm ctr_zookeeper
 echo "### Zookeper stopped"
 
+echo "### Stopping Pushpin ###"
+sudo docker stop ctn_neurone_pushpin
+sudo docker rm ctn_neurone_pushpin
+
+
 echo "#### NEURONE AM Stopped"
