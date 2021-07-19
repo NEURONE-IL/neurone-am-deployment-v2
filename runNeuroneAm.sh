@@ -42,12 +42,12 @@ sleep 10
 echo "##Kafka processor created"
 
 cd ..
-# echo "## Cloning Neurone am Coordinador v2"
-# git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
-# cd neurone-am-coordinator-v2
-# echo "## Init neurone am coordinator v2"
-# ./runDocker.sh
-# cd ..
+echo "## Cloning Neurone am Coordinador v2"
+git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
+cd neurone-am-coordinator-v2
+echo "## Init neurone am coordinator v2"
+./runDocker.sh
+cd ..
 
 cd pushpin
 ./runDocker.sh
