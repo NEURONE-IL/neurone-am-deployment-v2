@@ -16,13 +16,22 @@ echo "### Connector deleted"
 echo "Deleting topics"
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.visitedlinks --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.bookmarks --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.queries --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.keystrokes --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic totalcover --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic bmrelevant --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic precision --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic writingtime --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic pagestay --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic totalpagestay --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic ifquotes --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-config --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-offset --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-status --if-exists
 echo "Topics deleted"
 
 echo "Clean environment"
-docker exec ctr_kafka-broker kafka-streams-application-reset --application-id totalcover-application
+docker exec ctr_kafka-broker kafka-streams-application-reset --application-id streaming-processing
 
 
 echo "Creating topics again"

@@ -20,7 +20,7 @@ echo "## Zookeper Docker ready"
 echo "## Init Kafka broker "
 cd Kafka
 ./runDocker.sh
-sleep 10
+sleep 30
 echo "#Initials topics creation"
 ./createTopics.sh
 echo "Broker and topic created"
@@ -34,6 +34,7 @@ echo "# Create mongo connector"
 echo "## Kafka-connect created"
 cd ..
 echo "## Cloning Kafka-processor repository"
+sudo rm -r neurone-streaming-processor
 git clone  "https://$user:$pass@$host/neurone-streaming-processor.git"
 cd neurone-streaming-processor
 echo "## Init Kafka processor"
@@ -41,18 +42,19 @@ echo "## Init Kafka processor"
 sleep 10
 echo "##Kafka processor created"
 
-cd ..
-echo "## Cloning Neurone am Coordinador v2"
-git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
-cd neurone-am-coordinator-v2
-echo "## Init neurone am coordinator v2"
-./runDocker.sh
-cd ..
+# cd ..
+# echo "## Cloning Neurone am Coordinador v2"
+# sudo rm -r neurone-am-coordinator-v2
+# git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
+# cd neurone-am-coordinator-v2
+# echo "## Init neurone am coordinator v2"
+# ./runDocker.sh
+# cd ..
 
-cd pushpin
-./runDocker.sh
-cd ..
-echo "## Init pushpin"
+# cd pushpin
+# ./runDocker.sh
+# cd ..
+# echo "## Init pushpin"
 
 echo "###NEURONE AM V2 is Ready"
 
