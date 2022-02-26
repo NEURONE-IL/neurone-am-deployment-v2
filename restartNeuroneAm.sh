@@ -25,6 +25,7 @@ docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic pagestay --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic totalpagestay --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic ifquotes --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic firstquerytime --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-config --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-offset --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-status --if-exists
@@ -38,7 +39,7 @@ echo "Creating topics again"
 ./Kafka/createTopics.sh
 
 sleep 10
-./Kafka-connect/createMongoConnector.sh
+./Kafka-connect/createMongoConnectorTrivia.sh
 
 echo "Init streaming processor again"
 cd neurone-streaming-processor

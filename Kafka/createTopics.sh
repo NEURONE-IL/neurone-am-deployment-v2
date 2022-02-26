@@ -15,3 +15,4 @@ docker exec ctr_kafka-broker kafka-topics --create --bootstrap-server localhost:
 docker exec ctr_kafka-broker kafka-topics --create --bootstrap-server localhost:9092 --topic pagestay --if-not-exists
 docker exec ctr_kafka-broker kafka-topics --create --bootstrap-server localhost:9092 --topic totalpagestay --if-not-exists
 docker exec ctr_kafka-broker kafka-topics --create --bootstrap-server localhost:9092 --topic ifquotes --if-not-exists
+docker exec ctr_kafka-broker kafka-topics --create --bootstrap-server localhost:9092 --topic firstquerytime --if-not-exists

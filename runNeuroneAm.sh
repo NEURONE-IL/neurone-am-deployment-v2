@@ -30,7 +30,7 @@ cd Kafka-connect
 ./runDocker.sh
 sleep 60
 echo "# Create mongo connector"
-./createMongoConnector.sh
+./createMongoConnectorTrivia.sh
 echo "## Kafka-connect created"
 cd ..
 echo "## Cloning Kafka-processor repository"
