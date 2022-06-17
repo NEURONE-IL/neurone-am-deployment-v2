@@ -72,3 +72,27 @@ A continuación se describen los pasos a seguir para poder hacer una instalació
 * Finalmente, ejecutar el comando ```rs.status()``` para vierificar que todo funciono correctamente.
 * Luego de seguir todos estos pasos, la base de datos ya habra quedado configurada en modo replicaSet, con una replica activa.
 
+
+
+## Estructura de despliegue
+
+Con ayuda del script provisto en este repositorio se pueden desplegar los 6 componentes que permiten el correcto funcionamiento de NEURONE AM. Cada uno de dichos componentes queda desplegado con su respectivo contenedor docker. Así mismo, algunos de estos poseen diferentes archivos de configuración que deben ser modificados dependiendo del caso. A continuación se describe de forma breve el rol de cada componente:
+
+* Kafka-connect:
+    * Nombre contenedor: ctr_kafka-connect
+    * Corresponde a una instancia de Kafka Connect, la cual permite detectar y obtener en tiempo real los datos de la base de datos a medida que estos se van insertando. Luego, dichos datos son almacenados en los canales del Broker de Kafka.
+* Kafka-broker: 
+    * Nombre contenedor: ctr_kafka-broker
+    * Componente central de la infraestructura, el cual permite implementar el patrón publish-subscriber y se encarga de proveer diferentes canales desde los cuales los datos en bruto y las métricas pueden ser consumidos.
+* Zookeper:
+    * Nombre contenedor: ctr_zookeper.
+    * Componente que utiliza el broker de kafka por defecto para guardar las configuraciones asociados a esto y coordinar diferentes réplicas del mismo broker si se despliega de forma distribuida. En las nuevas versiones de Kafka, este componente ya no es requerido, puesto que se está trabajando en un mecanismo de coordinación propio de los brokers entre sí.
+* Streaming-processor:
+    * Nombre contenedor: ctr_streaming-processor
+    * Componente que permite llevar a cabo el procesamiento de las métricas en tiempo real a través de un enfoque de procesamiento streaming. Se encuentra desarrollado en java y utiliza la biblioteca Kafka Streaming para soportar dicho procesamiento. A diferencia de los componentes descritos anteriormente, este posee su propio repositorio y Dockerfile para la construcción del contenedor. Se conecta al broker de kafka.
+* Coordinator V2: 
+    * Nombre contenedor: ctr_coordinator
+    * Corresponde a una versión mejorada del coordinador, cuyo principal rol es hacer la entrega de las métricas calculadas y almacenadas en los canales del broker. Además, soporta la creación de múltiples configuraciones para que diferentes clientes puedan realizar el consumo de métricas de acuerdo a sus requerimientos. Al igual que straming-processor posee su propio repositorio con el archivo Dockerfile para el montaje del contenedor. Se encuentra implementado en Java con el framework spring-boot. Seria recomendable hacer un refactor de este componente con herramientas menos complejas y más pequeñas, dado las fucniones que tiene.
+* Pushpin: 
+    * Nombre contenedor:  ctn_neurone_pushpin
+    * Componente que funciona como un proxy que permite realizar una separación entre el coordinador y aquellos clientes que deseen interactuar con este. Específicamente, permite que el coordinador se abstraiga de la implementación de SSE y Websocket para la entrega de datos en tiempo real y de forma progresiva.
