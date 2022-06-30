@@ -689,8 +689,8 @@ curl -X POST http://localhost:8000/api/init/s1 -H "Content-Type: application/jso
     "documentsQuantity": 10,
     "relevantsQuantity": 3,
     "queryList": [
-        "qué es una red neuronal",
-        "que es la computación cuántica",
+        "qué es una \"red\" neuronal?",
+        "que es la \"computación cuántica\"",
         "qué es machinelearning",
         "bosques finlandeces",
         "que es netflix",

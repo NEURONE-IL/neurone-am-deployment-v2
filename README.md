@@ -96,3 +96,22 @@ Con ayuda del script provisto en este repositorio se pueden desplegar los 6 comp
 * Pushpin: 
     * Nombre contenedor:  ctn_neurone_pushpin
     * Componente que funciona como un proxy que permite realizar una separación entre el coordinador y aquellos clientes que deseen interactuar con este. Específicamente, permite que el coordinador se abstraiga de la implementación de SSE y Websocket para la entrega de datos en tiempo real y de forma progresiva.
+
+
+## Archivos de despliegue
+
+Cada una de las carpetas del repositorio se encuentra asociadas a alguno de los componentes señalados. Así mismo, en terminos generales, estas poseen ciertos archivos en comun necesarios para la construcción e inicialización de los contenedores. Por lo tanto, dichos archivos deben ser modificados en caso de ser necesario. Por ejemplo, si se desea modificar el puerto en el que se expone el contenedor.
+
+* runDocker.sh: Este archivo corresponde a un script que se encarga de todo el proceso asociado a la construcción y ejecución del contenededor docker. En este se define el nombre de cada contenedor así como los puertos en los cuales  se expone el servicio.
+* Dockerfile: Este archivo incluye todas las dependencias necesarias para consturir el docker. A diferencia del script runDocker, este archivo no está presente en todas las carpetas, lo cual se debe principalmente a que existen contenedores que no requieren de modificaciones especefícias, como es el caso de los asociados a Kafka, Kafka-connect o Zookeeper.
+
+
+Por otro lado, tambien existen otros archivos de propósito específico para el montaje de algunos contenedores:
+
+* createTopics.sh: Script que se ejecuta luego de construir el contenedor del broker de kafka y permite la creación de los tópicos o canales en los cuales se van almacenando los datos obtenidos desde la base de datos fuente y aquellos asociados a las métricas.
+* createMongoConnector.sh/createMongoConnectorTrvia.sh: Script que realiza un llamado REST a la instancia de Kafka-connect para indicar que base de datos se desea escuchar.
+* runNeuroneAm.sh: Script que lleva a cabo el despliegue de todos los contenedores docker asociados a los componentes descritos.
+* stopNeuroneAm.sh: Script que permite detener todos los contenedores asociados a los componentes.
+* restartNeuroneAm.sh: Luego de desplegar todos los componentes, este script puede ser utilizado para realizar un reinicio de NeuroneAm sin tener que realizar todo el proceso de despliegue nuevamente. Específicamente, se realiza una limpiesa de los datos almacenados en el broker así como la instancia de procesamiento streaming.
+
+
