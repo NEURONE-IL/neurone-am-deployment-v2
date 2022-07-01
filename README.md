@@ -115,3 +115,21 @@ Por otro lado, tambien existen otros archivos de propósito específico para el 
 * restartNeuroneAm.sh: Luego de desplegar todos los componentes, este script puede ser utilizado para realizar un reinicio de NeuroneAm sin tener que realizar todo el proceso de despliegue nuevamente. Específicamente, se realiza una limpiesa de los datos almacenados en el broker así como la instancia de procesamiento streaming.
 
 
+## Variables de configuración
+
+Existen diferentes variables de cofiguración que deben ser definidas dependiendo del ambiente en el cual se realiza el despliegue de NEURONE AM. Estas se encuentran ubicadas principalmente en los scripts de despliegue señalados anteriormente. No obstante, actualmente, con los valores que tienen estas por defecto ya se puede establecer la conexión entre los difefentes componentes. No obstante, existe una excepción, la cual corresponde a Kafka conect. Específicamente, se le debe proveer a dicho componente las credenciales asociadas a la base de datos que se desea escuchar en tiempo real. Para esto se debe modificar el archivo **createMongoConnector.sh** presente en [/Kfka-connect/createMongoConnector.sh](/Kafka-connect/createMongoConnector.sh). Concretamente, se deben modificar los siguientes campos en el JSON que se entrega a través de curl:
+
+* connection.uri: Corresponde a la MongoDB URL que permite a Kafka connect conectarse con la base de datos fuente de los datos y posee el siguiente formato: mongodb://usuario:password@host_db:puerto/?authSource=base_de_datos.
+* database: Corresponde al nombre de la base de datos fuente.
+
+## Pasos de despliegue
+
+Considerando todo lo anterior, para realizar el despliegue de una NEURONE AM en un servidor con Ubuntu esoecífico, se deben seguir los siguientes pasos.
+
+* Clonar este repositorio en el servidor en el cual se realizará el despliegue.
+* Modificar [el archivo](/Kafka-connect/createMongoConnector.sh) que se encarga de generar en enlace con la base de datos fuente con Kafka connect.
+* Ejecutar [el script] (runNeuroneAm.sh) y esperar que termine la creación y ejecución de todos los contenedores.
+    * Se debe tener en consideración que al ejecutar el script se pedirá acceso desde github para clonar los repositorios asociados a el componente de procesamiento streaming y el coordinador. Por lo tanto se debe poseer una cuenta registrada en dichos repositorios.
+* Luego de que el script se ejecuta, a través del puerto 7999 se pueden consumir las métricas a través del puerto coordinador.
+
+
