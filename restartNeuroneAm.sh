@@ -1,10 +1,10 @@
 #!/bin/bash
-echo "Init reset script!"
-echo "### Stopping streaming processor"
-sudo docker stop ctr_streaming-processor
-sudo docker rm ctr_streaming-processor
-sudo docker rmi img_streaming-processor
-echo "### Streaming processor stopped"
+# echo "Init reset script!"
+# echo "### Stopping streaming processor"
+# sudo docker stop ctr_streaming-processor
+# sudo docker rm ctr_streaming-processor
+# sudo docker rmi img_streaming-processor
+# echo "### Streaming processor stopped"
 
 echo "### Deleting connector"
 curl -X PUT http://localhost:28082/connectors/mongo-source/pause
@@ -18,6 +18,7 @@ docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.bookmarks --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.queries --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.keystrokes --if-exists
+docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.events --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic totalcover --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic bmrelevant --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic precision --if-exists
@@ -26,6 +27,7 @@ docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic totalpagestay --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic ifquotes --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic firstquerytime --if-exists
+docker exec ctr_kafka-broker kafka-topics --create --bootstrap-server localhost:9092 --topic challengestarted --if-not-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-config --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-offset --if-exists
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic connect-status --if-exists
@@ -39,12 +41,12 @@ echo "Creating topics again"
 ./Kafka/createTopics.sh
 
 sleep 10
-./Kafka-connect/createMongoConnectorTrivia.sh
+./Kafka-connect/createMongoConnector.sh
 
-echo "Init streaming processor again"
-cd neurone-streaming-processor
+# echo "Init streaming processor again"
+# cd neurone-streaming-processor
 
-./runDocker.sh
-cd ..
+# ./runDocker.sh
+# cd ..
 
 echo "## Environment reset!"
