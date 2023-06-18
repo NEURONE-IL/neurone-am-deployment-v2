@@ -43,10 +43,10 @@ echo "Creating topics again"
 sleep 10
 ./Kafka-connect/createMongoConnector.sh
 
-# echo "Init streaming processor again"
-# cd neurone-streaming-processor
+echo "Init streaming processor again"
+cd neurone-streaming-processor
 
-# ./runDocker.sh
-# cd ..
+./runDocker.sh
+cd ..
 
 echo "## Environment reset!"

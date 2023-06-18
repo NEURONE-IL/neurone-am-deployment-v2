@@ -30,12 +30,12 @@ cd Kafka-connect
 ./runDocker.sh
 sleep 60
 echo "# Create mongo connector"
-./createMongoConnectorTrivia.sh
+./createMongoConnector.sh
 echo "## Kafka-connect created"
 cd ..
 echo "## Cloning Kafka-processor repository"
 sudo rm -r neurone-streaming-processor
-git clone  "https://$user:$pass@$host/neurone-streaming-processor.git"
+git clone  "git@github.com:NEURONE-IL/neurone-streaming-processor.git"
 cd neurone-streaming-processor
 echo "## Init Kafka processor"
 ./runDocker.sh
@@ -45,7 +45,7 @@ echo "##Kafka processor created"
 cd ..
 echo "## Cloning Neurone am Coordinador v2"
 sudo rm -r neurone-am-coordinator-v2
-git clone "https://$user:$pass@$host/neurone-am-coordinator-v2.git"
+git clone "git@github.com:NEURONE-IL/neurone-am-coordinator-v2.git"
 cd neurone-am-coordinator-v2
 echo "## Init neurone am coordinator v2"
 ./runDocker.sh
@@ -56,5 +56,5 @@ cd pushpin
 cd ..
 echo "## Init pushpin"
 
-echo "###NEURONE AM V2 is Ready"
+# echo "###NEURONE AM V2 is Ready"
 
