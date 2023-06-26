@@ -30,7 +30,10 @@ cd Kafka-connect
 ./runDocker.sh
 sleep 60
 echo "# Create mongo connector"
-./createMongoConnector.sh
+./createMongoConnectorAux.sh  
+
+echo "# Create mongo sink connector"
+./createMongoSinkConnector.sh  
 echo "## Kafka-connect created"
 cd ..
 echo "## Cloning Kafka-processor repository"
@@ -56,5 +59,5 @@ cd pushpin
 cd ..
 echo "## Init pushpin"
 
-# echo "###NEURONE AM V2 is Ready"
+echo "###NEURONE AM V2 is Ready"
 

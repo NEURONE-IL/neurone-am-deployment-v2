@@ -12,6 +12,12 @@ curl -X PUT http://localhost:28082/connectors/mongo-source/pause
 curl -X DELETE http://localhost:28082/connectors/mongo-source
 echo "### Connector deleted"
 
+echo "### Deleting sink connector"
+curl -X PUT http://localhost:28082/connectors/mongo-sink/pause
+
+curl -X DELETE http://localhost:28082/connectors/mongo-sink
+echo "### Connector deleted"
+
 
 echo "Deleting topics"
 docker exec ctr_kafka-broker kafka-topics --delete --bootstrap-server localhost:9092 --topic neurone.visitedlinks --if-exists
@@ -41,7 +47,10 @@ echo "Creating topics again"
 ./Kafka/createTopics.sh
 
 sleep 10
-./Kafka-connect/createMongoConnector.sh
+./Kafka-connect/createMongoConnectorAux.sh
+
+sleep 2
+./Kafka-connect/createMongoSinkConnector.sh
 
 echo "Init streaming processor again"
 cd neurone-streaming-processor
