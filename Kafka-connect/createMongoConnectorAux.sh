@@ -10,7 +10,7 @@ curl -X POST http://localhost:28082/connectors -H "Content-Type: application/jso
         "poll.max.batch.size": 1000,
         "poll.await.times.ms": 5000,
         "publish.full.document.only": true,
-        "pipeline": "[{\"$match\":{\"ns.coll\":{\"$regex\":/^(visitedlinks|queries|bookmarks|keystrokes|events)$/}}}, {\"$match\": {\"fullDocument.userId\": {\"$exists\": true}}}, {\"$addFields\": {\"fullDocument.userId\": {\"$toString\": \"$fullDocument.userId\"}}}]",
+        "pipeline": "[{\"$match\":{\"ns.coll\":{\"$regex\":/^(visitedlinks|queries|bookmarks|keystrokes|events)$/}}}, {\"$match\": {\"fullDocument.userId\": {\"$exists\": true}, \"fullDocument.studyId\": {\"$exists\": true}}}, {\"$addFields\": {\"fullDocument.userId\": {\"$toString\": \"$fullDocument.userId\"}, \"fullDocument.studyId\": {\"$toString\": \"$fullDocument.studyId\"}}}]",
         "output.schema.infer.value": true,
         "output.format.key": "json",
         "output.format.value": "schema",
