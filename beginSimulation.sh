@@ -1,8 +1,20 @@
 #!/bin/bash
 
+read -p "Enter database user (default: neurone): " db_user
+db_user=${db_user:-neurone}
+
+read -p "Enter database host (default: localhost:27017): " db_host
+db_host=${db_host:-localhost:27017}
+
+read -p "Enter database name (default: neurone): " db_name
+db_name=${db_name:-neurone}
+
+read -sp "Enter database password (default: neur0n3): " db_password
+db_password=${db_password:-neur0n3}
+
 curl -X POST http://localhost:8000/api/init/s1 -H "Content-Type: application/json" -d '
 {
-    "probabilityGraph": {
+        "probabilityGraph": {
         "Q1": {
             "P1": 0.77,
             "Q2": 0.23,
@@ -685,9 +697,14 @@ curl -X POST http://localhost:8000/api/init/s1 -H "Content-Type: application/jso
     "expiration":true,
     "sensibility": 90,
     "interval":500,
-    "participantQuantity": 40,
+    "participantQuantity": 10,
     "documentsQuantity": 10,
     "relevantsQuantity": 3,
+    "predefinedUsersIds": [
+        "507f1f77bcf86cd799439011",
+        "507f191e810c19729de860ea",
+        "507f1f77bcf86cd799439012"
+    ],
     "queryList": [
         "qué es una \"red\" neuronal?",
         "que es la \"computación cuántica\"",
@@ -699,9 +716,9 @@ curl -X POST http://localhost:8000/api/init/s1 -H "Content-Type: application/jso
         "google"
     ],
     "database": {
-        "databaseName": "neurone",
-        "databaseUser": "neurone",
-        "databasePassword": "neur0n3",
-        "databaseHost": "localhost:27018"
+        "databaseName": "'"$db_name"'",
+        "databaseUser": "'"$db_user"'",
+        "databasePassword": "'"$db_password"'",
+        "databaseHost": "'"$db_host"'"
     }
 }'
