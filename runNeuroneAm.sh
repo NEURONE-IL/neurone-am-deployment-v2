@@ -1,10 +1,7 @@
 #!/bin/bash
 
-user=$1
-pass=$2
-host="github.com/javier322"
-read -p "  github user: " user
-read -s -p "  github pass: " pass
+# Load variables from .env file
+source .env
 
 echo "##### Init neurone AM deployment"
 
@@ -35,10 +32,11 @@ echo "# Create mongo connector"
 echo "# Create mongo sink connector"
 ./createMongoSinkConnector.sh  
 echo "## Kafka-connect created"
+
 cd ..
 echo "## Cloning Kafka-processor repository"
 sudo rm -r neurone-streaming-processor
-git clone  "git@github.com:NEURONE-IL/neurone-streaming-processor.git"
+git clone https://"$GITHUB_USER":"$GITHUB_PASS"@github.com/NEURONE-IL/neurone-streaming-processor.git
 cd neurone-streaming-processor
 echo "## Init Kafka processor"
 ./runDocker.sh
@@ -48,7 +46,7 @@ echo "##Kafka processor created"
 cd ..
 echo "## Cloning Neurone am Coordinador v2"
 sudo rm -r neurone-am-coordinator-v2
-git clone "git@github.com:NEURONE-IL/neurone-am-coordinator-v2.git"
+git clone https://"$GITHUB_USER":"$GITHUB_PASS"@github.com/NEURONE-IL/neurone-am-coordinator-v2.git
 cd neurone-am-coordinator-v2
 echo "## Init neurone am coordinator v2"
 ./runDocker.sh
