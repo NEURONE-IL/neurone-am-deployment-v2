@@ -1,17 +1,12 @@
 #!/bin/bash
 
-read -p "Enter database user (default: neurone): " db_user
-db_user=${db_user:-neurone}
+# Load variables from .env file
+source .env
 
-read -p "Enter database host (default: localhost:27017): " db_host
-db_host=${db_host:-localhost:27017}
-
-read -p "Enter database name (default: neurone): " db_name
-db_name=${db_name:-neurone}
-
-read -sp "Enter database password (default: neur0n3): " db_password
-db_password=${db_password:-neur0n3}
-
+db_user=${DB_USER:-neurone}
+db_host=${DB_HOST:-localhost:27017}
+db_name=${DB_NAME:-neurone}
+db_password=${DB_PASSWORD:-neur0n3}
 
 curl -X POST http://localhost:28082/connectors -H "Content-Type: application/json" -d '{
     "name": "mongo-sink",
